@@ -44,7 +44,6 @@ class ListController extends Controller
         $validator = Validator::make($request->all(),[
             'list_name'=>'required',
           ]);
-        //dd($request);
 
           if(!$validator->passes()){
               return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
@@ -133,12 +132,6 @@ class ListController extends Controller
             }
         }
         //$companies = Company::pluck('id')->toArray();
-
-        //dd($companyIds);
-        //dd($user_watchlists);
         return view('List.edit', compact('user_watchlists', 'companies_list','companyIds'));
-    
     }
-
-
 }

@@ -52,7 +52,6 @@ class HomeController extends Controller
         }
     }
 
-
     public function saveResult(Request $request) {
 
         $financeArray  = explode('_',$request->financeResult);
@@ -81,38 +80,13 @@ class HomeController extends Controller
             //dd($company);
 
             CompanyUser::create($company);
-            return redirect('/home')->with('msg', 'Company added Successfully');
         }else{
-            echo "<pre>";
-            print_r($company_name);
-        }
 
+            $company['company_id'] = $company_name[0]['id'];
+            $company['user_id'] = $request->user()->id;
+            CompanyUser::create($company);
+        }
+        return redirect('/home')->with('msg', 'Company added Successfully');
     }
 
-
-    // function curlRequest($query) {
-
-    //     $curl = curl_init();
-
-    //     curl_setopt_array($curl, [
-    //     CURLOPT_URL => "https://yh-finance.p.rapidapi.com/auto-complete?q=$query&region=US",
-    //     CURLOPT_RETURNTRANSFER => true,
-    //     CURLOPT_FOLLOWLOCATION => true,
-    //     CURLOPT_ENCODING => "",
-    //     CURLOPT_MAXREDIRS => 10,
-    //     CURLOPT_TIMEOUT => 30,
-    //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    //     CURLOPT_CUSTOMREQUEST => "GET",
-    //     CURLOPT_HTTPHEADER => [
-    //         "x-rapidapi-host: yh-finance.p.rapidapi.com",
-    //         "x-rapidapi-key: f0d3e7f880msh2833404c41f6f40p1906b2jsn610b11b925a0"
-    //     ],
-    //     ]);
-
-    //     $response = curl_exec($curl);
-    //     $err = curl_error($curl);
-    //     $result = json_decode($response, true);
-    //     return $result;
-
-    // }
 }
